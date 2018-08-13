@@ -1,5 +1,4 @@
 import React from 'react';
-import data from '../../data/exampleTimeSlotData.json';
 import TimeSlots from '../timeslots/TimeSlots';
 import axios from 'axios';
 
@@ -30,13 +29,13 @@ class SelectedDate extends React.Component {
         this.state.activities.map((activity) => {
           if (this.props.selectedDate.format("YYYY-MM-DD") === activity.date) {
             return (
-              <TimeSlots activity={activity} clickBook={this.props.clickBook.bind(this)}/>
+              <TimeSlots activity={activity} clickBook={this.props.clickBook.bind(this)} book={this.props.book}/>
             );
           } else {
             return '';
           }
+          
         })
-
         }
       </div>
     );
@@ -45,3 +44,4 @@ class SelectedDate extends React.Component {
 
 
 export default SelectedDate;
+
