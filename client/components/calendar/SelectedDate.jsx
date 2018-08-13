@@ -10,8 +10,6 @@ class SelectedDate extends React.Component {
 
 
   render() {
-    console.log();
-
     return (
       <div>
        {
@@ -20,7 +18,6 @@ class SelectedDate extends React.Component {
         ? 
         ""
         : 
-
           <TimeSlots />        
         }
       </div>
