@@ -1,4 +1,5 @@
 import React from 'react';
+import CalendarDay from './CalendarDay';
 
 class CalendarWeek extends React.Component {
   render() {
@@ -20,20 +21,10 @@ class CalendarWeek extends React.Component {
       };
     
       days.push(
-        <span 
-        key={date.toString()} 
-        style={{flex: 1, textAlign: 'center', fontWeight: 100}}
-        className={
-          "day" + (day.isToday ? " today" : "") 
-          + (day.isCurrentMonth ? "" : " different-month") 
-          + (date.isSame(this.props.selected) ? " selected" : "")
-        }
-        onClick={()=> this.props.select(day)}
-        >
-
-        {day.number}
-
-        </span>
+        <CalendarDay day={day}
+          selected={this.props.selected}
+          select={this.props.select}
+          />
       );
 
       date = date.clone();
