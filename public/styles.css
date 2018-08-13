@@ -11,7 +11,7 @@ body {
 
 .calendar {
   /* display: block; */
-  width: 300px;
+  min-width: 500px;
   /* margin: 0px auto; */
   font-size: 20pt;
 }
@@ -97,17 +97,57 @@ body {
 }
  
 
-.grid {
-  display: grid;
-  grid-auto-rows: minmax(125px, auto);
-  grid-gap: .5rem;
+.wrapper {
+	padding: 5px;
+	/* max-width: 960px; */
+	width: 95%;
+	margin: 20px auto;
 }
 
-@media screen and (min-width: 120px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 2px;
+.columns {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	margin: 5px 0;
+}
+
+.column {
+  /* flex: 1; */
+  min-width: 300px;
+	border: 1px solid gray;
+	margin: 2px;
+	padding: 10px;
+}
+
+.column:first-child { 
+  margin-left: 0;
+}
+
+.column:last-child { 
+  margin-right: 0; 
+}
+
+@media screen and (max-width: 980px) {
+  .columns .column {
+		margin-bottom: 5px;
+    flex-basis: 40%;
   }
+  
+  .columns .column::nth-last-child(2) {
+    margin-right: 0;
+  }
+
+  .columns .column:last-child {
+    flex-basis: 100%;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 680px) {
+	.columns .column {
+		flex-basis: 100%;
+		margin: 0 0 5px 0;
+	}
 }
 
 .middle-grid {
