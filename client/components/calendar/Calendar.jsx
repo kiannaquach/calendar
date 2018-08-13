@@ -113,12 +113,12 @@ class Calendar extends React.Component {
           <SelectedDate 
             selectedDate={this.state.selectedDay} 
             clickBook={this.clickBook.bind(this)} 
+            book={this.state.book}
           />
-
-          <div>
-            {!this.state.book ? '' : <div className="column">YOU BOOKED!</div>}
-          </div>
+        {(!this.state.book) ? '' : <div className="column">hello</div>}
         </div>
+
+
       </div>
     );
   }
