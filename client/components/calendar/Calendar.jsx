@@ -101,7 +101,7 @@ class Calendar extends React.Component {
             <CalendarDayNames />
             {this.renderWeeks()}
         </div>
-
+        <SelectedDate selectedDate={this.state.selectedDay}/>
       </div>
     );
   }
