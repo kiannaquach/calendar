@@ -1,19 +1,12 @@
 import React from 'react';
-import moment from 'moment';
 
 class CalendarDayNames extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      month: moment(),
-      selectedDay: moment().startOf('day')
-    };
   }
 
 
   render() {
-    console.log(this.state.month);
     return (
       <div className="row day-names">
         <span className="day-names-span">Sun </span>
