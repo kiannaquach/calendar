@@ -1,6 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import CalendarDayNames from './CalendarDayNames';
+import CalendarWeek from './CalendarWeek';
+import SelectedDate from './SelectedDate';
+
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -8,7 +11,7 @@ class Calendar extends React.Component {
 
     this.state = {
       momentDate: moment(),
-      selectedDay: moment().startOf('day')
+      selectedDay: moment().startOf('day'),
     };
 
     this.getPrevious = this.getPrevious.bind(this);
@@ -38,7 +41,6 @@ class Calendar extends React.Component {
     });
   }
 
-
   // onClick you get next month
   // setState to month - 1
   // use moment method subtract to increment month
@@ -48,18 +50,63 @@ class Calendar extends React.Component {
     });
   }
 
+/******  SELECTED DAY & WEEKS ******/
+
+  select(day) {
+    this.setState({
+      selectedDay: day.date,
+      momentDate: day.date.clone(),
+    }, console.log(this.state.selectedDay));
+  }
+
+  renderWeeks() {
+    let weeks = [];
+    let done = false;
+    let date = this.state.momentDate.clone().startOf("month").add("w" -1).day("Sunday");
+    let count = 0;
+    let monthIndex = date.month();
+
+
+    while (!done) {
+      weeks.push(
+        <CalendarWeek key={date} 
+          date={date.clone()} 
+          month={this.state.momentDate} 
+          select={(day)=>this.select(day)} 
+          selected={this.state.selectedDay} 
+          />
+      );
+
+      date.add(1, "w");
+
+      count++;
+
+      done = count > 2 && monthIndex !== date.month();
+      monthIndex = date.month();
+    }
+
+    return weeks;
+  }
+
+
   render() {
     return (
-      <div className="calendar">
-          <div className="month row">
-            {this.getMonthName()}
-            <i className="arrow fa fa-angle-left" onClick={this.getPrevious}/>
-            <i className="arrow fa fa-angle-right" onClick={this.getNext}/>
-          </div>
-          <CalendarDayNames />
+      <div className="grid">
+        <div className="calendar grid__wrapper">
+            <div className="month row">
+              {this.getMonthName()}
+              <i className="arrow fa fa-angle-left" onClick={this.getPrevious}/>
+              <i className="arrow fa fa-angle-right" onClick={this.getNext}/>
+            </div>
+            <CalendarDayNames />
+            {this.renderWeeks()}
+        </div>
+
       </div>
     );
   }
 }
 
 export default Calendar;
+
+// {!this.state.displayAvail ? <div></div> : <div className="time">hello</div>}
