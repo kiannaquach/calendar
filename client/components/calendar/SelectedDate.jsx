@@ -1,10 +1,24 @@
 import React from 'react';
 import data from '../../data/exampleTimeSlotData.json';
 import TimeSlots from '../timeslots/TimeSlots';
+import axios from 'axios';
 
 class SelectedDate extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      activities: []
+    };
+  }
+
+  componentDidMount() {
+    axios.get('/activityInfo')
+    .then((res) => {
+      this.setState ({
+        activities: [...res.data]
+      });
+    });
 
   }
 
@@ -13,12 +27,16 @@ class SelectedDate extends React.Component {
     return (
       <div>
        {
+        this.state.activities.map((activity) => {
+          if (this.props.selectedDate.format("YYYY-MM-DD") === activity.date) {
+            return (
+              <TimeSlots activity={activity}/>
+            );
+          } else {
+            return '';
+          }
+        })
 
-        !(this.props.selectedDate.format().slice(0, 10) === data.timeslots[0].start.slice(0,10)) 
-        ? 
-        ""
-        : 
-          <TimeSlots />        
         }
       </div>
     );
