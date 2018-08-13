@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const db = require('../db/index.js');
 
 const app = express();
 
@@ -14,5 +15,14 @@ app.listen(port, () => {
   console.log(`server running at: http://localhost:${port}`);
 });
 
+app.get('/activityInfo', (req, res) => {
+  db.ActivityTimeSlots.find()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log('DB ERROR', err);
+    });
+});
 
 module.exports = app;
