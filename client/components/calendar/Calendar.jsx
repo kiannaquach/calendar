@@ -56,7 +56,7 @@ class Calendar extends React.Component {
     this.setState({
       selectedDay: day.date,
       momentDate: day.date.clone(),
-    }, console.log(this.state.selectedDay));
+    });
   }
 
   renderWeeks() {
