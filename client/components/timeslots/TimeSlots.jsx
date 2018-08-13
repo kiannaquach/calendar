@@ -25,25 +25,18 @@ class TimeSlots extends React.Component {
   render() {
     return (
       <div className="grid">
-        <div className="middle-grid grid__wrapper">
-        {
-          data.timeslots.map((timeSlot) => {
-            return (
-              <div>
-                <div className="timeslot" key={timeSlot.id} onClick={() => this.bookSelectedActivity(timeSlot)}>
-                  <div>{timeSlot.activity_name}</div>
-                  <div>start: {timeSlot.start.slice(11)}</div>
-                  <div>end: {timeSlot.end.slice(11)}</div>
-                  <br />
-                </div>
-              </div>
-            );
-          })
-        }
+        <div className="middle-grid">
+          <div style={{marginBottom: '10px'}} className="timeslot" onClick={() => this.bookSelectedActivity(this.props.activity)}>
+            {this.props.activity.activityName}
+            <br />
+            {this.props.activity.start} - 
+            {this.props.activity.end}
+          </div>
         </div>
 
-        <TimeSlot selectedActivity={this.state.selectedActivity} />
-
+        <div>
+          <TimeSlot selectedActivity={this.state.selectedActivity} />
+        </div> 
       </div>
     );
   }
@@ -51,3 +44,19 @@ class TimeSlots extends React.Component {
 
 
 export default TimeSlots;
+
+
+{/* <div className="grid">
+<div className="middle-grid grid__wrapper">
+  <div className="timeslot" key={this.props.activity.id} onClick={() => this.bookSelectedActivity(this.props.activity)}>
+    <div>{this.props.activity.activityName}</div>
+    <div>start: {this.props.activity.start}</div>
+    <div>end: {this.props.activity.end}</div>
+    <br />
+  </div>
+</div>
+</div>
+
+<div>
+<TimeSlot selectedActivity={this.state.selectedActivity} />
+</div> */}
