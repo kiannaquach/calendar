@@ -7,7 +7,8 @@ class TimeSlots extends React.Component {
     super(props);
 
     this.state = {
-      selectedActivity: ''
+      selectedActivity: '',
+      selected: false
     };
 
   }
@@ -16,7 +17,8 @@ class TimeSlots extends React.Component {
   bookSelectedActivity(activity) {
     // console.log('you clicked');
     this.setState ({
-      selectedActivity: activity
+      selectedActivity: activity,
+      selected: !this.state.selected
     });
   }
 
@@ -24,9 +26,9 @@ class TimeSlots extends React.Component {
 
   render() {
     return (
-      <div className="grid">
-        <div className="middle-grid">
-          <div style={{marginBottom: '10px'}} className="timeslot" onClick={() => this.bookSelectedActivity(this.props.activity)}>
+      <div>
+        <div className="column">
+          <div className="timeslot" onClick={() => this.bookSelectedActivity(this.props.activity)}>
             {this.props.activity.activityName}
             <br />
             {this.props.activity.start} - 
@@ -34,8 +36,9 @@ class TimeSlots extends React.Component {
           </div>
         </div>
 
-        <div>
-          <TimeSlot selectedActivity={this.state.selectedActivity} />
+        <div className="column">
+          {(!this.state.selected) ? <div></div> :
+          <TimeSlot selectedActivity={this.state.selectedActivity} clickBook={this.props.clickBook.bind(this)}/> }
         </div> 
       </div>
     );
@@ -44,19 +47,3 @@ class TimeSlots extends React.Component {
 
 
 export default TimeSlots;
-
-
-{/* <div className="grid">
-<div className="middle-grid grid__wrapper">
-  <div className="timeslot" key={this.props.activity.id} onClick={() => this.bookSelectedActivity(this.props.activity)}>
-    <div>{this.props.activity.activityName}</div>
-    <div>start: {this.props.activity.start}</div>
-    <div>end: {this.props.activity.end}</div>
-    <br />
-  </div>
-</div>
-</div>
-
-<div>
-<TimeSlot selectedActivity={this.state.selectedActivity} />
-</div> */}
