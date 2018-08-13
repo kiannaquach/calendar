@@ -8,11 +8,12 @@ class TimeSlot extends React.Component {
   render() {
     // console.log('not selected', this.props.timeSlot.id === this.props.selectActivity.id)
     return (
-      <div className="last-grid grid__wrapper">
+      <div className="last-grid grid__wrapper" onClick={() => this.props.clickBook()}>
         <div>{this.props.selectedActivity.id}</div>
-        <div>{this.props.selectedActivity.max_guests}</div>
-        <div>{this.props.selectedActivity.minute_length}</div>
-        <div>{this.props.selectedActivity.available_spots}</div>
+        <div>{this.props.selectedActivity.maxGuests}</div>
+        <div>{this.props.selectedActivity.minuteLength}</div>
+        <div>{this.props.selectedActivity.availableSpots}</div>
+        <button>book</button>
       </div>
     );
   }
