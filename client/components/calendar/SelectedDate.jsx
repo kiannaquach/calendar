@@ -30,7 +30,7 @@ class SelectedDate extends React.Component {
         this.state.activities.map((activity) => {
           if (this.props.selectedDate.format("YYYY-MM-DD") === activity.date) {
             return (
-              <TimeSlots activity={activity}/>
+              <TimeSlots activity={activity} clickBook={this.props.clickBook.bind(this)}/>
             );
           } else {
             return '';

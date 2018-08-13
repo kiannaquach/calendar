@@ -12,6 +12,7 @@ class Calendar extends React.Component {
     this.state = {
       momentDate: moment(),
       selectedDay: moment().startOf('day'),
+      book: false
     };
 
     this.getPrevious = this.getPrevious.bind(this);
@@ -88,20 +89,36 @@ class Calendar extends React.Component {
     return weeks;
   }
 
+  clickBook() {
+    console.log('you clicked book');
+    this.setState({
+      book: true
+    });
+  }
+
 
   render() {
     return (
-      <div className="grid">
-        <div className="calendar grid__wrapper">
-            <div className="month row">
-              {this.getMonthName()}
-              <i className="arrow fa fa-angle-left" onClick={this.getPrevious}/>
-              <i className="arrow fa fa-angle-right" onClick={this.getNext}/>
-            </div>
-            <CalendarDayNames />
-            {this.renderWeeks()}
+      <div className="wrapper">
+        <div className="columns">
+          <div className="calendar column">
+              <div className="month row">
+                {this.getMonthName()}
+                <i className="arrow fa fa-angle-left" onClick={this.getPrevious}/>
+                <i className="arrow fa fa-angle-right" onClick={this.getNext}/>
+              </div>
+              <CalendarDayNames />
+              {this.renderWeeks()}
+          </div>
+          <SelectedDate 
+            selectedDate={this.state.selectedDay} 
+            clickBook={this.clickBook.bind(this)} 
+          />
+
+          <div>
+            {!this.state.book ? '' : <div className="column">YOU BOOKED!</div>}
+          </div>
         </div>
-        <SelectedDate selectedDate={this.state.selectedDay}/>
       </div>
     );
   }
@@ -109,4 +126,3 @@ class Calendar extends React.Component {
 
 export default Calendar;
 
-// {!this.state.displayAvail ? <div></div> : <div className="time">hello</div>}
