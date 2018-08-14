@@ -12,6 +12,9 @@ body {
 .calendar {
   /* display: block; */
   min-width: 500px;
+  min-height: 300px;
+  max-height: 300px;
+  border: 1px solid gray;
   /* margin: 0px auto; */
   font-size: 20pt;
 }
@@ -114,7 +117,6 @@ body {
 .column {
   /* flex: 1; */
   min-width: 300px;
-	border: 1px solid gray;
 	margin: 2px;
 	padding: 10px;
 }
