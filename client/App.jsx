@@ -10,15 +10,36 @@ class App extends React.Component {
     return (
       <div>
         <nav>
-          <ul class="container">
-            <li>SERENDIPITY</li>
+          <ul className="container">
+            <li>
+              ADVENTURES
+              <div style={{fontSize: '10pt'}}>find your new adventure and have fun!</div>
+            </li>
           </ul>
         </nav>
 
         <Calendar />
 
-          <ul class="container footer">
-            <a>Kianna✌🏻</a>
+          <ul className="container footer">
+            <a 
+            className="footer-hyperlink"
+            target="_blank" 
+            rel="noopener noreferrer" 
+            href="https://kiannaquach.com" 
+            >
+
+              Kianna✌🏻
+            </a>
+
+            <a 
+            className="footer-hyperlink-github"
+            target="_blank" 
+            rel="noopener noreferrer" 
+            href="https://github.com/kiannaquach" 
+            >
+              <i className="fab fa-github-alt fa-sm">
+              </i>
+            </a>
           </ul>
       </div>
     );
