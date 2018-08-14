@@ -1,4 +1,5 @@
 import React from 'react';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class CalendarDay extends React.Component {
   constructor(props) {
@@ -33,18 +34,21 @@ class CalendarDay extends React.Component {
 
 
     return (
+        // <Tooltip title={selected.format("dddd, MMMM Do")} placement="top">
+        <Tooltip title='smile😊 click for activites' placement="top">
         <span 
-          key={date.toString()} 
+          key={date} 
           style={{flex: 1, textAlign: 'center', fontWeight: 100}}
           className={
             "day" + (isToday ? " today" : "") 
             + (isCurrentMonth ? "" : " different-month") 
             + (date.isSame(selected) ? " selected" : "")
-          }
+          }s
           onClick={()=> select(day)}
         >
-          {number}
+            {number}
         </span>
+      </Tooltip>
     );
   }
 }
