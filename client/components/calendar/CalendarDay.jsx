@@ -43,9 +43,7 @@ class CalendarDay extends React.Component {
           }
           onClick={()=> select(day)}
         >
-
           {number}
-
         </span>
     );
   }
