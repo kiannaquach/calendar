@@ -1,36 +1,42 @@
 body {
   font-family: 'Lato', sans-serif;
-  margin: 50px;
+  margin: 20px;
+  background-image: url("https://s3.amazonaws.com/calendar-kianna/IMG_1405.jpg");
+  background-position: center; 
+  background-size: auto; 
 }
+
+/*********   CALENDAR   ***********/
 
 .row {
   display: flex;
   width: 100%;
 }
 
-
 .calendar {
-  /* display: block; */
   min-width: 500px;
   min-height: 300px;
   max-height: 300px;
-  border: 1px solid gray;
   /* margin: 0px auto; */
   font-size: 20pt;
 }
 
 .month {
   height: 40px;
-  background:white;
+  background:#fafafa;
 }
 
 .month-name { 
   flex: auto;
-  /* text-transform: uppercase; */
 }
 
 .month-year {
   flex: auto;
+  font-weight: 300;
+}
+
+.activities-title{  
+  font-size: 20pt;
   font-weight: 300;
 }
 
@@ -61,7 +67,6 @@ body {
 }
 
 .week {
-  /* border-top: solid 1px black */
   cursor: pointer;
 }
 
@@ -74,11 +79,19 @@ body {
   color: pink;
 }
 
-/* .selected {
-  background: yellow;
-  color: black;
-} */
+.quote {
+  margin-top: 10px;
+  font-size: 15pt;
+  justify-content: center;
+  text-align: center;
+  font-style: italic;
+}
 
+
+
+
+
+/*********   CALENDAR SELECTED DATE   ***********/
 
 .selected::after {
   /* flex:auto; */
@@ -95,14 +108,15 @@ body {
 }
 
 .selected:hover::after {
-  opacity: 1;
+  background: rgb(224, 224, 153);
   transform: translate(-100%, 15%) scale(1, 1);
 }
- 
 
+
+ 
+/*********  COLUMNS/COLUMN/WRAPPER   ***********/
 .wrapper {
 	padding: 5px;
-	/* max-width: 960px; */
 	width: 95%;
 	margin: 20px auto;
 }
@@ -111,44 +125,35 @@ body {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
-	margin: 5px 0;
+  margin: 5px 0;
 }
 
 .column {
-  /* flex: 1; */
+  border: 1px solid #C8C8C8;
+  border-radius: 2%;
   min-width: 300px;
-	margin: 2px;
-	padding: 10px;
-}
-
-.column:first-child { 
-  margin-left: 0;
-}
-
-.column:last-child { 
-  margin-right: 0; 
+  max-width: 350px;
+  padding: 10px;
+  height: 300px;
+  min-height: 350px;
+  max-height: 350px;
+  background-color: #fafafa ;
+  overflow-y: scroll;
+  margin-right: 8px;
+  z-index: 1;
 }
 
 @media screen and (max-width: 980px) {
   .columns .column {
-		margin-bottom: 5px;
+		margin-bottom: 8px;
     flex-basis: 40%;
-  }
-  
-  .columns .column::nth-last-child(2) {
-    margin-right: 0;
-  }
-
-  .columns .column:last-child {
-    flex-basis: 100%;
-    margin: 0;
   }
 }
 
 @media screen and (max-width: 680px) {
 	.columns .column {
 		flex-basis: 100%;
-		margin: 0 0 5px 0;
+		margin: 0 0 8px 0;
 	}
 }
 
@@ -161,7 +166,19 @@ body {
   width: 300px;
 }
 
+
+
+/*********   TIME SLOT ACTIVITIES COMPONENTS  ***********/
 .timeslot {
+  margin: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid #e5edf9;
+}
+
+.timeslot-info {
+  margin: 10px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -172,9 +189,9 @@ body {
   position: absolute;
   content: "";
   width: 110%;
-  height: 0;
+  height: 200px;
   padding-bottom: 110%;
-  border-radius: 50%;
+  border-radius: 60%;
   top: 0%;
   left: 50%;
   background: lightblue;
@@ -188,4 +205,263 @@ body {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1, 1);
   transition: transform .3s ease-out 0s;
+}
+
+.activity-info {
+  font-size: 10pt;
+  font-weight: 100;
+}
+
+
+/*********   NAV BAR   ***********/
+.container {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  list-style-type: none;
+  font-size: 30pt;
+  font-weight: 300;
+  color: white;
+}
+
+.container > li {
+  flex: 1;
+}
+
+/************** FOOTER *****************/
+
+.footer {
+  background-color: transparent;
+  font-size: 15pt;
+  color: white;
+  float: right;
+}
+
+.footer-hyperlink {
+  text-decoration: none;
+  color: white;
+}
+
+
+.footer-hyperlink:hover {
+  text-decoration: none;
+  color: yellow;
+}
+
+.footer-hyperlink-github {
+  text-decoration: none;
+  color: white;
+}
+
+.footer-hyperlink-github:hover {
+  text-decoration: none;
+  color: yellow;
+}
+
+
+/**************** FORM ****************/
+
+.form { 
+  position:relative; 
+  margin-bottom:30px; 
+}
+
+input {
+  display:block;
+  font-size:18px;
+  font-family: Lato, sans-serif;
+  display:inline-block;
+  width:300px;
+  border:none;
+  background-color: #fafafa;
+  padding:10px 10px 10px 5px;
+  border-bottom:1px solid #757575;
+}
+
+input:focus { 
+  outline:none; 
+}
+
+label {
+  z-index: -1;
+  color:#fafafa; 
+  font-size:14px;
+  font-weight:normal;
+  pointer-events:none;
+  position:absolute;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+input:focus ~ label, input:valid ~ label {
+  top:-10px;
+  font-size:7pt;
+  color:#5264AE;
+}
+
+.bar    { 
+  position:relative; 
+  display:block; 
+  width:300px; 
+}
+
+.bar:before, .bar:after     {
+  content:'';
+  height:2px; 
+  width:0;
+  bottom:1px; 
+  position:absolute;
+  background:#5264AE; 
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+.bar:before {
+  left:50%;
+}
+
+.bar:after {
+  right:50%; 
+}
+
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+@-webkit-keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+    from { background:#5264AE; }
+  to    { width:0; background:transparent; }
+}
+
+
+
+
+
+/***** BOOK / SUBMIT BUTTON MATERIAL UI RIPPLE******/
+button, submit { border:none;} 
+
+button:focus {outline:0;}
+
+.btn {
+  position: relative;
+  
+  display: block;
+  overflow: hidden;
+  border-width: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(186, 180, 180, 0.6);
+  font-family: Lato, sans-serif;
+  background-color: yellow;
+  color: black;
+  width: 50px;
+  height: 20px;
+  transition: background-color .3s;
+  cursor: pointer
+}
+
+/* focus allows for target el color to change */
+.btn:hover, .btn:focus {
+  background-color: rgb(228, 228, 179)
+}
+
+.submit {
+  width: 100px;
+  float: right;
+}
+
+.btn span {
+  display: block;
+  padding: 12px 24px;
+}
+
+/* button animations */
+.btn:before {
+  content: "";
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  
+  display: block;
+  width: 0;
+  padding-top: 0;
+    
+  border-radius: 100%;
+  
+  background-color: rgba(236, 240, 241, .3);
+  
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+
+
+/* BOUNCE FOOTER */
+
+.animated {
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes bounce {
+  0%, 100% {
+    -webkit-transform: translateY(0);
+  }
+  50% {
+    -webkit-transform: translateY(-5px);
+  }
+}
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.bounce {
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+}
+
+.bounce:hover {
+  color: rgb(48, 110, 227);
 }
