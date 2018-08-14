@@ -1,41 +1,22 @@
 import React from 'react';
 import TimeSlots from '../timeslots/TimeSlots';
-import axios from 'axios';
 
 class SelectedDate extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activities: []
-    };
-  }
-
-  componentDidMount() {
-    axios.get('/activityInfo')
-    .then((res) => {
-      this.setState ({
-        activities: [...res.data]
-      });
-    });
-
   }
 
 
   render() {
+    // console.log('date', this.props.activity.date);
     return (
       <div>
        {
-        this.state.activities.map((activity) => {
-          if (this.props.selectedDate.format("YYYY-MM-DD") === activity.date) {
-            return (
-              <TimeSlots activity={activity} clickBook={this.props.clickBook.bind(this)} book={this.props.book}/>
-            );
-          } else {
-            return '';
-          }
-          
-        })
+         (this.props.selectedDate.format("YYYY-MM-DD") === this.props.activity.date) ?
+          <TimeSlots activity={this.props.activity} clickBook={this.props.clickBook.bind(this)} book={this.props.book}/>
+          :
+           ''
         }
       </div>
     );
