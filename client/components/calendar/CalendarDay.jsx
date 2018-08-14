@@ -35,7 +35,7 @@ class CalendarDay extends React.Component {
 
     return (
         // <Tooltip title={selected.format("dddd, MMMM Do")} placement="top">
-        <Tooltip title='smile😊 click for activites' placement="top">
+        <Tooltip title='click for activites☀️' placement="top">
         <span 
           key={date} 
           style={{flex: 1, textAlign: 'center', fontWeight: 100}}
@@ -43,7 +43,7 @@ class CalendarDay extends React.Component {
             "day" + (isToday ? " today" : "") 
             + (isCurrentMonth ? "" : " different-month") 
             + (date.isSame(selected) ? " selected" : "")
-          }s
+          }
           onClick={()=> select(day)}
         >
             {number}
