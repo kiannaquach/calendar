@@ -19,7 +19,8 @@ const activitySchema = mongoose.Schema({
   date: String,
   start: String,
   end: String,
-  activityName: String
+  activityName: String,
+  activityInfo: String,
 });
 
 const ActivityTimeSlots = mongoose.model('ActivityTimeSlots', activitySchema);
@@ -36,6 +37,7 @@ activityDetails.forEach((activity) => {
     start: activity.start,
     end: activity.end,
     activityName: activity.activity_name,
+    activityInfo: activity.activity_info,
   });
 
   activityInfo.save();
