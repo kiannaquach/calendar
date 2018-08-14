@@ -9,7 +9,17 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <nav>
+          <ul class="container">
+            <li>SERENDIPITY</li>
+          </ul>
+        </nav>
+
         <Calendar />
+
+          <ul class="container footer">
+            <a>Kianna✌🏻</a>
+          </ul>
       </div>
     );
   }
