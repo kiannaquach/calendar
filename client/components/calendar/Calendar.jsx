@@ -1,8 +1,10 @@
 import React from 'react';
 import moment from 'moment';
+import axios from 'axios';
 import CalendarDayNames from './CalendarDayNames';
 import CalendarWeek from './CalendarWeek';
 import SelectedDate from './SelectedDate';
+import Availability from '../timeslots/Availability';
 
 
 class Calendar extends React.Component {
@@ -12,13 +14,27 @@ class Calendar extends React.Component {
     this.state = {
       momentDate: moment(),
       selectedDay: moment().startOf('day'),
-      book: false
+      book: false,
+      activities: [],
+      selectedActivity: {}
     };
 
     this.getPrevious = this.getPrevious.bind(this);
     this.getNext = this.getNext.bind(this);
+    this.getSelectedDateActivity = this.getSelectedDateActivity.bind(this);
+    this.getAvailability = this.getAvailability.bind(this);
   }
 
+  componentDidMount() {
+    axios.get('/activityInfo')
+    .then((res) => {
+      this.setState ({
+        activities: [...res.data]
+      });
+    });
+
+  }
+  
   /******  MONTH & YEAR & PREV/NEXT HEADER ******/
   // get month name/year using moment format method
   getMonthName() {
@@ -89,11 +105,45 @@ class Calendar extends React.Component {
     return weeks;
   }
 
-  clickBook() {
+  clickBook(activity) {
     console.log('you clicked book');
     this.setState({
-      book: true
+      book: true,
+      selectedActivity: activity
     });
+  }
+
+  getSelectedDateActivity() {
+    return this.state.activities.map((activity) => {
+      return (
+        <div>
+          <SelectedDate 
+            activity={activity}
+            selectedDate={this.state.selectedDay} 
+            clickBook={this.clickBook.bind(this)} 
+            book={this.state.book}
+          />
+        </div>
+      );
+    });
+  }
+
+  getAvailability() {
+    if (!this.state.book) {
+      return '';
+    } else {
+      return this.state.activities.map((activity) => {
+        return (
+          <div>
+            <Availability 
+              activity={activity}
+              selectedActivity={this.state.selectedActivity}
+              book={this.state.book}
+            />
+          </div>
+        );
+      });
+    }
   }
 
 
@@ -101,6 +151,7 @@ class Calendar extends React.Component {
     return (
       <div className="wrapper">
         <div className="columns">
+
           <div className="calendar column">
               <div className="month row">
                 {this.getMonthName()}
@@ -110,15 +161,20 @@ class Calendar extends React.Component {
               <CalendarDayNames />
               {this.renderWeeks()}
           </div>
-          <SelectedDate 
-            selectedDate={this.state.selectedDay} 
-            clickBook={this.clickBook.bind(this)} 
-            book={this.state.book}
-          />
-        {(!this.state.book) ? '' : <div className="column">hello</div>}
+
+          <div className="column">
+            {
+              this.getSelectedDateActivity()
+            }
+          </div>
+
+          <div className="column">
+            {
+              this.getAvailability()
+            }
+          </div>
+
         </div>
-
-
       </div>
     );
   }
