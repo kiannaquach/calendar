@@ -21,6 +21,7 @@ const activitySchema = mongoose.Schema({
   end: String,
   activityName: String,
   activityInfo: String,
+  price: String
 });
 
 const ActivityTimeSlots = mongoose.model('ActivityTimeSlots', activitySchema);
@@ -38,16 +39,18 @@ activityDetails.forEach((activity) => {
     end: activity.end,
     activityName: activity.activity_name,
     activityInfo: activity.activity_info,
+    price: activity.price
   });
-
+  
   activityInfo.save();
   // .then((data) => {
-  //   // console.log('INSERTED DB', data)
-  // }).catch((err) => {
-  //   // console.log('FAILED INSERT', err)
-  // });
+    //   // console.log('INSERTED DB', data)
+    // }).catch((err) => {
+      //   // console.log('FAILED INSERT', err)
+      // });
 });
 
+    
 module.exports = {
   ActivityTimeSlots,
 };
