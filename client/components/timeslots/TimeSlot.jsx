@@ -13,6 +13,7 @@ class TimeSlot extends React.Component {
         <br />
         <div className="activity-info">Total time: {this.props.selectedActivity.minuteLength}mins</div>
         <div className="activity-info">Available Spots: {this.props.selectedActivity.availableSpots}</div>
+        <br />
         <button className="btn" onClick={() => this.props.clickBook(this.props.selectedActivity)}>book</button>
       </div>
     );
