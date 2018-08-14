@@ -1,5 +1,4 @@
 import React from 'react';
-import data from '../../data/exampleTimeSlotData.json';
 import TimeSlot from './TimeSlot';
 
 class TimeSlots extends React.Component {
@@ -13,7 +12,6 @@ class TimeSlots extends React.Component {
 
   }
 
-
   bookSelectedActivity(activity) {
     // console.log('you clicked');
     this.setState ({
@@ -23,20 +21,17 @@ class TimeSlots extends React.Component {
   }
 
 
-
   render() {
     return (
-      <div>
-        <div className="column">
-          <div className="timeslot" onClick={() => this.bookSelectedActivity(this.props.activity)}>
+        <div>
+          <div className="timeslot" onClick={() => this.bookSelectedActivity(this.props.activity)} >
             {this.props.activity.activityName}
             <br />
             {this.props.activity.start} - 
             {this.props.activity.end}
           </div>
-        </div>
 
-        <div className="column">
+        <div className="timeslot-info">
           {(!this.state.selected) ? <div></div> :
           <TimeSlot selectedActivity={this.state.selectedActivity} clickBook={this.props.clickBook.bind(this)}/> }
         </div> 
