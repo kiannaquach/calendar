@@ -6,3 +6,4 @@ npm
 npm-debug.log
 node_modules/
 
+db/mlabConfig.js

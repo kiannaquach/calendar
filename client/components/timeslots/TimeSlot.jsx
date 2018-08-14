@@ -9,10 +9,12 @@ class TimeSlot extends React.Component {
     // console.log('not selected', this.props.timeSlot.id === this.props.selectActivity.id)
     return (
       <div className="last-grid grid__wrapper">
-        <div>Selected ID: {this.props.selectedActivity.id}</div>
-        <div>Guests: {this.props.selectedActivity.max_guests}</div>
-        <div>Minute Length: {this.props.selectedActivity.minute_length}</div>
-        <div>Available Spots: {this.props.selectedActivity.available_spots}</div>
+        <div className="activity-info">{this.props.selectedActivity.activityInfo}</div>
+        <br />
+        <div className="activity-info">Total time: {this.props.selectedActivity.minuteLength}mins</div>
+        <div className="activity-info">Available Spots: {this.props.selectedActivity.availableSpots}</div>
+        <br />
+        <button className="btn" onClick={() => this.props.clickBook(this.props.selectedActivity)}>book</button>
       </div>
     );
   }

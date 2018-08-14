@@ -1,8 +1,13 @@
 import React from 'react';
 import moment from 'moment';
+import axios from 'axios';
+import Tooltip from '@material-ui/core/Tooltip';
 import CalendarDayNames from './CalendarDayNames';
 import CalendarWeek from './CalendarWeek';
 import SelectedDate from './SelectedDate';
+import Availability from '../timeslots/Availability';
+import Form from '../signup/Forms';
+import FormCompletedMessage from '../signup/FormCompletedMessage';
 
 
 class Calendar extends React.Component {
@@ -12,12 +17,37 @@ class Calendar extends React.Component {
     this.state = {
       momentDate: moment(),
       selectedDay: moment().startOf('day'),
+      book: false,
+      activities: [],
+      selectedActivity: {},
+      quotes: {},
+      display: ''
     };
 
     this.getPrevious = this.getPrevious.bind(this);
     this.getNext = this.getNext.bind(this);
+    this.getSelectedDateActivity = this.getSelectedDateActivity.bind(this);
+    this.getAvailability = this.getAvailability.bind(this);
   }
 
+  componentDidMount() {
+    axios.get('/activityInfo')
+    .then((res) => {
+      this.setState ({
+        activities: [...res.data]
+      });
+    });
+
+    axios.get('https://quotes.rest/qod?category=inspire')
+    .then((res) => {
+      // console.log('res data', res.data.contents.quotes[0])
+        this.setState ({
+          quotes: res.data.contents.quotes[0]
+        });
+    });
+
+  }
+  
   /******  MONTH & YEAR & PREV/NEXT HEADER ******/
   // get month name/year using moment format method
   getMonthName() {
@@ -27,6 +57,8 @@ class Calendar extends React.Component {
         <span> </span>
         <span className="month-year">
           {this.state.momentDate.format("YYYY")}
+          <span>  </span>
+          📆
         </span>
       </span>
     );
@@ -52,13 +84,15 @@ class Calendar extends React.Component {
 
 /******  SELECTED DAY & WEEKS ******/
 
+  // when day is selected change the state to current day selected
   select(day) {
     this.setState({
       selectedDay: day.date,
       momentDate: day.date.clone(),
-    }, console.log(this.state.selectedDay));
+    });
   }
-
+  
+  // get weeks 
   renderWeeks() {
     let weeks = [];
     let done = false;
@@ -89,19 +123,161 @@ class Calendar extends React.Component {
   }
 
 
+  // book activity from the timeslots
+  clickBook(activity) {
+    // console.log('you clicked book');
+    this.setState({
+      book: true,
+      selectedActivity: activity
+    });
+  }
+  
+  // choose selected date
+  getSelectedDateActivity() {
+    return this.state.activities.map((activity, i) => {
+      return (
+        <div key={i}>
+          <SelectedDate 
+            activity={activity}
+            selectedDate={this.state.selectedDay} 
+            clickBook={this.clickBook.bind(this)} 
+            book={this.state.book}
+          />
+        </div>
+      );
+    });
+  }
+
+  /********* GET AVAILABILITY AND BOOK (3RD COLUMN) **********/
+  // check to see if date this avaiable and book
+  getAvailability() {
+    if (!this.state.book) {
+      return '';
+    } else {
+      return this.state.activities.map((activity, i) => {
+        return (
+          <div key={i}>
+            <Availability 
+              activity={activity}
+              selectedActivity={this.state.selectedActivity}
+              book={this.state.book}
+            />
+          </div>
+        );
+      });
+    }
+  }
+
+
+  /********* FORM ACTIONS FOR SIGN UP EVENT **********/
+  // form actions
+  submitForm() {
+    this.setState ({
+      display: 'none'
+    });
+  }
+
+  restartForm() {
+    this.setState ({
+      display: ''
+    });
+  }
+
+
   render() {
     return (
-      <div className="grid">
-        <div className="calendar grid__wrapper">
-            <div className="month row">
-              {this.getMonthName()}
-              <i className="arrow fa fa-angle-left" onClick={this.getPrevious}/>
-              <i className="arrow fa fa-angle-right" onClick={this.getNext}/>
+      <div className="wrapper">
+        <div className="columns">
+
+          <div className="calendar column">
+              <div className="month row">
+                {this.getMonthName()}
+
+                <Tooltip title='back' placement="bottom">
+                  <i 
+                    className="arrow fa fa-angle-left" 
+                    onClick={this.getPrevious}/>
+                </Tooltip>
+
+                <Tooltip title='next' placement="bottom">
+                  <i 
+                    className="arrow fa fa-angle-right" 
+                    onClick={this.getNext}/>
+                </Tooltip>
+
+              </div>
+
+              <CalendarDayNames />
+
+                {this.renderWeeks()}
+
+              <div className="row quote">
+                {this.state.quotes.quote}--{this.state.quotes.author}
+              </div>
+          </div>
+
+          <div className="column">
+            <div>
+            
+              <span className="activities-title">
+                What do 
+                <span> </span>
+                <span style={{fontWeight: 400, fontSize: '20pt'}}>you</span>
+                <span> </span>
+                want to do? 🏄‍♀️🚴‍♂️
+              </span>
+
             </div>
-            <CalendarDayNames />
-            {this.renderWeeks()}
+            {
+              this.getSelectedDateActivity()
+            }
+          </div>
+
+          <div className="column">
+            {
+              (this.state.display === 'none') ?  
+
+                <FormCompletedMessage 
+                  restartForm={this.restartForm.bind(this)}
+                  selectedActivity={this.state.selectedActivity}
+                  />
+                
+                : 
+                <div style={{display: this.state.display}}>
+                  <div>
+
+                    <span className="activities-title">
+
+                      <span 
+                        style={{fontWeight: 400, fontSize: '20pt'}}>
+                        Book
+                      </span><span> </span><span>now  👉</span>
+
+                    </span>
+
+                  </div>
+
+                  <br />
+                  
+                  <Form />
+
+                  {this.getAvailability()}
+
+                  <br />
+
+                  <div>
+                  <button 
+                    className="btn submit" 
+                    onClick={() => this.submitForm()}>
+                    submit
+                  </button>
+                  </div>
+
+                </div>
+            }
+          </div>
+
         </div>
-        <SelectedDate selectedDate={this.state.selectedDay}/>
       </div>
     );
   }
@@ -109,4 +285,3 @@ class Calendar extends React.Component {
 
 export default Calendar;
 
-// {!this.state.displayAvail ? <div></div> : <div className="time">hello</div>}

@@ -21,18 +21,21 @@ class CalendarWeek extends React.Component {
       };
     
       days.push(
-        <CalendarDay day={day}
+        <CalendarDay 
+          key={days[i]}
+          day={day}
           selected={this.props.selected}
           select={this.props.select}
           />
       );
 
+      // create replica of current date
       date = date.clone();
       date.add(1, "day");
     }
 
     return (
-      <div className="row week" key={days[0]}>
+      <div className="row week">
         {days}
       </div>
     );

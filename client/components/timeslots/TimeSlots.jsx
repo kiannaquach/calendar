@@ -1,53 +1,73 @@
 import React from 'react';
-import data from '../../data/exampleTimeSlotData.json';
 import TimeSlot from './TimeSlot';
+import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@material-ui/core/styles';
+
+
+const styles = theme => ({
+  customWidth: {
+    maxWidth: 58,
+  }
+});
+
 
 class TimeSlots extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedActivity: ''
+      selectedActivity: '',
+      selected: false
     };
 
   }
 
-
   bookSelectedActivity(activity) {
     // console.log('you clicked');
     this.setState ({
-      selectedActivity: activity
+      selectedActivity: activity,
+      selected: !this.state.selected
     });
   }
 
 
-
   render() {
     return (
-      <div className="grid">
-        <div className="middle-grid grid__wrapper">
-        {
-          data.timeslots.map((timeSlot) => {
-            return (
-              <div>
-                <div className="timeslot" key={timeSlot.id} onClick={() => this.bookSelectedActivity(timeSlot)}>
-                  <div>{timeSlot.activity_name}</div>
-                  <div>start: {timeSlot.start.slice(11)}</div>
-                  <div>end: {timeSlot.end.slice(11)}</div>
-                  <br />
-                </div>
-              </div>
-            );
-          })
-        }
-        </div>
+        <div>
+          <Tooltip 
+            title={this.props.activity.availableSpots + 
+            " spots left        " + 
+            " click for info"} 
+            classes={{ tooltip: this.props.classes.customWidth }}
+            placement="top-end">
+            
+            <div className="timeslot" 
+              onClick={() => this.bookSelectedActivity(this.props.activity)}>
 
-        <TimeSlot selectedActivity={this.state.selectedActivity} />
+              {this.props.activity.activityName}
+              <br />
+              {this.props.activity.start} - 
+              {this.props.activity.end}
+              
+            </div>
+          </Tooltip>
 
+        <div className="timeslot-info">
+          {
+
+            (!this.state.selected) ? 
+            <div></div> 
+            :
+            <TimeSlot 
+              selectedActivity={this.state.selectedActivity} 
+              clickBook={this.props.clickBook.bind(this)}/>
+
+          }
+        </div> 
       </div>
     );
   }
 }
 
 
-export default TimeSlots;
+export default withStyles(styles)(TimeSlots);
