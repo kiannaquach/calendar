@@ -20,14 +20,13 @@ class App extends React.Component {
 
         <Calendar />
 
-          <ul className="container footer">
+          <ul className="container footer icons animated bounce">
             <a 
             className="footer-hyperlink"
             target="_blank" 
             rel="noopener noreferrer" 
             href="https://kiannaquach.com" 
             >
-
               Kianna✌🏻
             </a>
 
@@ -37,8 +36,7 @@ class App extends React.Component {
             rel="noopener noreferrer" 
             href="https://github.com/kiannaquach" 
             >
-              <i className="fab fa-github-alt fa-sm">
-              </i>
+              <i className="fab fa-github-alt fa-sm" />
             </a>
           </ul>
       </div>
