@@ -1,5 +1,5 @@
 # Booking Calendar with Time Slots
-> Booking calendar created with Moment.js, React.js, Express.js, MongoDB, and Node.js. Users can easily book activities depending on the day selected on the custom made calendar. 
+> Booking calendar created with Moment.js, React.js, Express.js, MongoDB, and Node.js. Users can easily book activities depending on the day selected on the custom made calendar. Activity data is available from 08/14/18 to 01/30/19
 
 Mobile-Friendly Calendar | Responsive Web Calendar
 ------------ | -------------
